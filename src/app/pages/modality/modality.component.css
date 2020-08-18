@@ -1,0 +1,106 @@
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #6c757d;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0
+}
+
+input:hover::-webkit-input-placeholder {
+    color: rgb(255, 255, 255);
+}
+
+.cartaheader {
+    background-color: white;
+}
+
+.dropdown-item:hover {
+    transition: all.3s;
+    color: #5578eb;
+    text-decoration: none;
+    background-color: #f8f9fa
+}
+
+.dropdown-item.pdf:hover {
+    transition: all.3s;
+    color: red;
+}
+
+.dropdown-item.blue:hover {
+    transition: all.3s;
+    color: #335de7;
+}
+
+.dropdown-item.excel:hover {
+    transition: all.3s;
+    color: green;
+}
+
+.dropdown-item.pdf:focus {
+    transition: all.3s;
+    color: red;
+}
+
+.dropdown-item.excel:focus {
+    transition: all.3s;
+    color: green;
+}
+
+.dropdown-item:focus {
+    color: #335de7;
+    background-color: #f8f9fa
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #335de7;
+    text-decoration: none;
+    background-color: #f8f9fa
+}
+
+.dropdown-item.disabled,
+.dropdown-item:disabled {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: transparent
+}
+
+.dropdown-menu.show {
+    display: block
+}
+
+.dropdown-header {
+    display: block;
+    padding: .5rem 1.5rem;
+    margin-bottom: 0;
+    font-size: .750rem;
+    color: #6c757d;
+    white-space: nowrap
+}
+
+.dropdown-item-text {
+    display: block;
+    padding: .25rem 1.5rem;
+    color: #212529
+}
+
+.pdf {
+    cursor: pointer;
+}
+
+.drop-options-text {
+    font-size: .750rem;
+}
+
+.excel {
+    cursor: pointer;
+}
+
+.blue {
+    cursor: pointer;
+}

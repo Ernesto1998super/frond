@@ -1,0 +1,30 @@
+<section id="wrapper" class="login-register login-sidebar" style="background-image:url(../assets/images/utags/bg-utags.jpg);">
+    <div class="login-box card">
+        <div class="logo-uta-icono">
+            <a class="text-center db  m-t-0 m-b-0">
+                <img src="../assets/images/utags/logo-icon.png" class="card-img-top img-responsive align-self-center mt-2" alt="utags" style="width: 40%;" />
+            </a>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="User(forma, user.strEmail)" #forma="ngForm" class="form-horizontal form-material" autocomplete="off" id="loginform">
+                <h2 class="box-title m-t-0 m-b-0 center-align text-center db text-uppercase">Enviar Email</h2>
+                <div class="form-group m-2 ">
+                    <div class="col-xs-0">
+                        <input pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$' onkeyup="javascript:this.value=this.value.toLowerCase();" [ngClass]="{'is-invalid': strEmail.errors?.required && forma.controls['strEmail'].touched }" class="form-control is-invalid" type="text"
+                            name="strEmail" placeholder="Email" #email="ngModel" #strEmail="ngModel" [(ngModel)]="user.strEmail" required>
+                        <div class="text-danger" *ngIf="strEmail.errors?.pattern">
+                            <small>El correo electrónico no es válido. (example@utags.edu.mx)</small>
+                        </div>
+                        <div class="invalid-feedback" *ngIf="strEmail.errors?.required">
+                            Es necesario ingresar el email del usuario
+                        </div>
+                    </div>
+                </div>
+ 
+                <a class="text-center">
+                    <button type="submit" [disabled]="forma.invalid" class="btn btn-info btn-lg btn-block btn-rounded text-uppercase mt-4">Enviar</button>
+                </a>
+            </form>
+        </div>
+    </div>
+</section>

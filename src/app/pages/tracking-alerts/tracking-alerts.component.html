@@ -1,0 +1,204 @@
+<div class="card">
+    <form class="card-body">
+        <div class="row container mb-3">
+            <div class="col-md-6 align-self-start">
+                <div class="row">
+                    <i class="fa fa-user-circle mr-2"></i>
+                    <small style="font-size: 4;">{{ userName }} </small>
+                </div>
+                <div class="row">
+                    <small class="text-primary ml-4" style="font-size: 2;"> {{objSubject.strAsignatura}} </small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row justify-content-end">
+                    <span class="badge badge-warning" >Proceso</span>
+                    <!-- <span class="badge badge-info" *ngIf="nuevo == alert.idEstatus._id">Nuevo</span>
+                    <span class="badge badge-danger" *ngIf="cerrado == alert.idEstatus._id">Cerrado</span>
+                    <span class="badge badge-warning" *ngIf="enProgreso == alert.idEstatus._id">Proceso</span>
+                    <span class="badge badge-success" *ngIf="finalizado == alert.idEstatus._id">Finalizado</span> -->
+                </div>
+                <div class="row justify-content-end mt-1">
+                    <i class="fa fa-calendar mr-2"></i>
+                    <small style="font-size: 2;"> Fecha </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="container">
+                        <table class="table table-bordered table-sm table-hover align-items-center" style="font-size: small;">
+                            <thead>
+                                <tr>
+                                    <th>Datos del alumno</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Matricula</td>
+                                    <td>{{objAlert.strMatricula}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td>{{objAlert.strNombreAlumno}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Grado y Grupo</td>
+                                    <td>{{objAlert.strGrupo}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Turno</td>
+                                    <td>{{objAlert.chrTurno}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Modalidad</td>
+                                    <td>{{objModality.strModalidad}}</td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="container">
+                        <table class="table table-bordered table-sm table-hover align-items-center"  style="font-size: small;">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Observaciones</th>
+                                </tr>
+                            </thead>
+    
+                            <!-- SE MUESTRA CUANDO HAY REGISTROS -->
+                            <tbody>
+                                <tr>
+                                    <td> {{objAlert.strDescripcion}}</td>
+                                </tr>
+                            </tbody>
+                        </table>   
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="container">
+                        <table class="table table-bordered table-sm table-hover align-items-center table table-responsive" style="font-size: small;">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Evidencias</th>
+                                </tr>
+                            </thead>
+    
+                            <!-- SE MUESTRA CUANDO HAY REGISTROS -->
+                            <tbody class="text-center">
+                                <tr>
+                                    <td><a class="stretched-link mr-3" *ngFor="let doc of arrFiles"> {{doc.strNombre}} </a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="row container">
+                <div class="col-md-12">
+                    <span class="badge badge-danger mr-2" *ngFor="let reason of arrReasons"> {{reason.strCategoria}} </span>
+                </div>
+            </div>
+
+        </div>
+       
+    </form>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row justify-content-end">
+       <div class="col-11">
+        <div class="card" *ngFor="let dataTracking of arrTracking">
+            <form class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <i class="fa fa-user-circle mr-2"></i>
+                                <small style="font-size: 4;">{{userName}}</small>
+                            </div>
+                            <div class="row">
+                                <small class="text-primary ml-4" style="font-size: 2;">Director</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row justify-content-end">
+                                <span class="badge badge-warning" >Proceso</span>
+                            </div>
+                            <div class="row justify-content-end mt-1">
+                                <i class="fa fa-calendar mr-2"></i>
+                                <small style="font-size: 2;">30/07/2020</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row container mt-2">
+                        <div class="col-md-12">
+                            <p>{{dataTracking.strComentario}}</p>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <a href="#" class="stretched-link mr-3">Link 1</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="m2 " role="alert ">
+    <form (ngSubmit)="comentarAlerta(forma)" #forma="ngForm" novalidate="" enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="card card-body animacion ">
+                <div class="row ">
+                    <div class=" col-md-8 col-lg-8 ">
+                        <i class="fa fa-comments " style="font-size:24px; "></i> 
+                            <small style="font-size: 4; "> Comentar</small> 
+
+                        <hr>
+
+                        <div class="row justify-content-between">
+                            <div class="col-md-12 mt-1 ">
+                                <textarea class="form-control form-control-sm " rows="3 " maxlength="300 " placeholder="Observaciones" name="strComentario" [(ngModel)]="objTracking.strComentario" required #strComentario="ngModel"></textarea>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <select [class.is-invalid]="idEstatus.invalid && idEstatus.touched" class="custom-select selectpicker form-control form-control-sm" type="text" title="Seleccione Estatus" name="idEstatus" [(ngModel)]="objTracking.idEstatus" required #idEstatus="ngModel">
+                                    <option *ngFor="let estatus of arrEstatus"  [ngValue]="estatus._id" > {{estatus.strNombre}} </option>
+                                </select>
+                            </div>
+                            <div class="invalid-feedback" *ngIf="idEstatus.errors?.required">
+                                <small>
+                                    Por favor, seleccione una opción.
+                                </small>
+                            </div>
+
+                            <div class="col-5 mt-2">
+                                <button [disabled]="forma.invalid" type="submit" class="btn btn-sm btn-outline-success btn-block float-right">Enviar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <i class="fa fa-file " style="font-size:24px; "></i>
+                            <small style="font-size: 4; "> Adjuntar Archivos</small> 
+    
+                        <hr>
+          
+                        <app-file-uploader (archivosObtenidos)="obtenerArchivos($event)"></app-file-uploader>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

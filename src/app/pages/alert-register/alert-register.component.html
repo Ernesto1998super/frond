@@ -1,0 +1,145 @@
+<div class="card animated fadeIn fast">
+    <form #forma="ngForm" novalidate="" enctype="multipart/form-data" class="mt-3 mb-3" (ngSubmit)="registrarAlerta(forma)">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="container">
+
+                    <h4>Registrar de Datos Generales</h4>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-6 mt-2">
+                            <input [class.is-invalid]="strMatricula.invalid && strMatricula.touched" class="form-control form-control-sm" type="text" placeholder="Matricula" name="strMatricula" [(ngModel)]="alerta.strMatricula" required #strMatricula="ngModel">
+                            <div class="invalid-feedback" *ngIf="strMatricula.errors?.required">
+                                <small>
+                                Es necesario ingresar la matricula del alumno.
+                            </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-2">
+                            <input [class.is-invalid]="strNombreAlumno.invalid && strNombreAlumno.touched" class="form-control form-control-sm" type="text" placeholder="Nombre del Estudiante" name="strNombreAlumno" [(ngModel)]="alerta.strNombreAlumno" required #strNombreAlumno="ngModel">
+                            <div class="invalid-feedback" *ngIf="strNombreAlumno.errors?.required">
+                                <small>
+                                    Es necesario ingresar el nombre del alumno.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-2">
+                            <select [class.is-invalid]="idCarrera.invalid && idCarrera.touched" class="custom-select selectpicker form-control form-control-sm" type="text" title="Seleccione una Carrera" name="idCarrera" [(ngModel)]="alerta.idCarrera" required #idCarrera="ngModel"
+                                (ngModelChange)="getEspecialidad($event)">
+                                <option *ngFor="let carrera of carreras" [ngValue]="carrera._id">{{carrera.strCarrera}}</option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="idCarrera.errors?.required">
+                                <small>
+                                    Por favor, seleccione una opción.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-2">
+                            <select [disabled]="chooseSpeciality" [class.is-invalid]="idEspecialidad.invalid && idEspecialidad.touched" class="custom-select selectpicker form-control form-control-sm" type="text" title="Seleccione una Especialidad" name="idEspecialidad" [(ngModel)]="alerta.idEspecialidad"
+                                required #idEspecialidad="ngModel">
+                                <option *ngFor="let esp of especialidades" [ngValue]="esp._id">{{esp.strEspecialidad}}</option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="idEspecialidad.errors?.required">
+                                <small>
+                                    Por favor, seleccione una opción.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-2">
+                            <select [class.is-invalid]="idModalidad.invalid && idModalidad.touched" class="custom-select selectpicker form-control form-control-sm" type="text" title="Seleccione una modalidad" name="idModalidad" [(ngModel)]="alerta.idModalidad" required #idModalidad="ngModel">
+                                <option *ngFor="let modalidad of modalidades" [ngValue]="modalidad._id">{{modalidad.strModalidad}}</option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="idModalidad.errors?.required">
+                                <small>
+                                    Por favor, seleccione una opción.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-2">
+                            <input [class.is-invalid]="strGrupo.invalid && strGrupo.touched" class="form-control form-control-sm" type="text" placeholder="Grado y Grupo" name="strGrupo" [(ngModel)]="alerta.strGrupo" required #strGrupo="ngModel">
+                            <div class="invalid-feedback" *ngIf="strGrupo.errors?.required">
+                                <small>
+                                    Es necesario ingresar un grado y grupo.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-2">
+                            <select [class.is-invalid]="idAsignatura.invalid && idAsignatura.touched" class="custom-select selectpicker form-control form-control-sm" title="Seleccione una Asignatura" data-live-search="true" type="text" name="idAsignatura" [(ngModel)]="alerta.idAsignatura"
+                                required #idAsignatura="ngModel">
+                                <option *ngFor="let asig of asignaturas" [ngValue]="asig._id">{{asig.strAsignatura}}</option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="idAsignatura.errors?.required">
+                                <small>
+                                    Por favor, seleccione una opción.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-2">
+                            <div class="row container">
+                                <div class="col-sm-4">
+                                    <label>Turno:</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input id="turnoM" name="chrTurno" class="info" [(ngModel)]="alerta.chrTurno" #chrTurno="ngModel" [value]="'M'" type="radio" aria-label="Radio button for following text input" (ngModelChange)="seleccionarTurno($event)">
+                                    <label for="turnoM">Matutino</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input id="turnoV" name="chrTurno" [(ngModel)]="alerta.chrTurno" #chrTurno="ngModel" [value]="'V'" type="radio" aria-label="Radio button for following text input" (ngModelChange)="seleccionarTurno($event)">
+                                    <label for="turnoV">Vespertino</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-2 mb-4">
+
+                            <select (ngModelChange)="getCrde($event)" [class.is-invalid]="arrCrde.invalid && arrCrde.touched" class="selectpicker form-control form-control-sm" multiple title="Seleccione las conductas de riesgo" name="arrCrde" [(ngModel)]="alerta.arrCrde" required
+                                #arrCrde="ngModel">
+                                <option *ngFor="let razon of razones" [ngValue]="razon._id">{{razon.strCategoria}}</option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="arrCrde.errors?.required">
+                                <small>
+                                    Por favor, seleccione una opción.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="container">
+                    <h4>Registrar de Detalles</h4>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12 mt-2">
+                            <textarea name="strDescripcion" class="form-control form-control-sm" rows="3" maxlength="300" placeholder="Detalles" [(ngModel)]="alerta.strDescripcion" required #strDescripcion="ngModel"></textarea>
+                        </div>
+                    </div>
+
+                    <h4 class="mt-3">Registro de Evidencias (opcional)</h4>
+                    <hr>
+
+                    <app-file-uploader (archivosObtenidos)="getArchivos($event)"></app-file-uploader>
+
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <button class="btn btn-block btn-sm btn-outline-danger">Cancelar</button>
+                        </div>
+                        <div class="col-6 mt-1">
+                            <button [disabled]="forma.invalid" type="submit " class="btn btn-block btn-sm btn-outline-info ">Registrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

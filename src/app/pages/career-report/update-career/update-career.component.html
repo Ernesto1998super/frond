@@ -1,0 +1,54 @@
+<div class="container animated fadeIn fast">
+    <h4>Actualizar Carrera</h4>
+    <hr>
+</div>
+
+<form (ngSubmit)="updateCareer(forma)" #forma="ngForm" novalidate="" enctype="multipart/form-data">
+    <div class="form-group-sm small">
+
+        <div class="row">
+            <div class="form-group col-md-12">
+
+                <div>
+                    <input [class.is-invalid]="strCarrera.invalid && strCarrera.touched" class="form-control form-control-sm" type="text " placeholder="Nombre de carrera" name="strCarrera" [(ngModel)]="career.strCarrera" required #strCarrera="ngModel">
+                    <div class="invalid-feedback" *ngIf="strCarrera.errors?.required">
+                        <small>
+                            Es necesario ingresar un nombre.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <select [class.is-invalid]="blnStatus.invalid && blnStatus.touched" class="custom-select form-control form-control-sm" type="text" name="blnStatus" [(ngModel)]="career.blnStatus" required #blnStatus="ngModel">
+                        <option [ngValue]="true">Activo</option>
+                        <option [ngValue]="false">Inactivo</option>
+                      </select>
+                </div>
+
+                <!-- <div class="list-inline mt-3 text-right">
+                    <div class="list-inline-item">
+                        <div class="form-group row">
+                            <div class="mr-3">
+                                <button [disabled]="forma.invalid" type="submit " class="btn btn-outline-info btn-sm "><i class="fa fa-save mr-2 "></i>Actualizar</button>
+                                <button (click)="updateCanceled()" type="submit " class="btn btn-outline-danger btn-sm "><i class="fa fa-times mr-2 "></i>Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="list-inline mt-3 text-right">
+                    <div class="list-inline-item">
+                        <div class="form-group row">
+                            <div class="mr-3">
+                                <button (click)="updateCanceled() " type="button " class="btn btn-outline-danger btn-sm mr-2 "><i class="fa fa-times mr-2"></i>Cancelar</button>
+                                <button [disabled]="forma.invalid" type="submit " class="btn btn-outline-info btn-sm "><i class="fa fa-save mr-2 "></i>Actualizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</form>

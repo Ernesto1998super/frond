@@ -1,0 +1,51 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<section id="wrapper" class="login-register login-sidebar" style="background-image:url(/assets/images/utags/bg-utags.jpg);">
+    <div class="login-box card col-12">
+        <img src="/assets/images/utags/logo-icon.png" class="card-img-top img-responsive align-self-center mt-2" alt="utags" style="width: 40%;">
+        <h2 class="text-center">ALERTAS ACADEMICAS</h2>
+        <div class="card-body">
+            <form [formGroup]="user" class="form-horizontal form-material" id="loginform">
+
+                <div class="form-group m-t-0">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" placeholder="Correo Institucional" name="strEmail" formControlName="strEmail" [class.is-invalid]="invalidEmail">
+                        <small *ngIf="invalidEmail" class="text-danger">El correo no es valido</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="password" placeholder="Contraseña" name="strPassword" formControlName="strPassword" minlength="8" [class.is-invalid]="invalidPassword">
+                        <small *ngIf="invalidPassword" class="text-danger">La contraseña debe contener minimo 8 caracteres</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div class="checkbox checkbox-primary pull-left p-t-0">
+                            <input formControlName="rememberMe" id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue">
+                            <label for="checkbox-signup"> Recordar cuenta </label>
+                        </div>
+                        <br><br>
+                        <a id="to-recover" class="text-dark pull-right" [routerLink]="['/sendemail']"><i class="fa fa-lock m-r-5"></i> ¿Olvidaste el password?</a>
+                        <!-- <a id="to-recover" class="text-dark pull-right" [routerLink]="['/sendemail']"><i class="fa fa-lock m-r-5"></i> ¿Olvidaste el password?</a> -->
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group text-center m-t-20">
+                    <div class="col-xs-12">
+                        <button (click)="login()" class="btn btn-info btn-lg btn-block text-uppercase btn-rounded">Ingresar</button>
+                    </div>
+                </div>
+                <div class="form-group m-b-2">
+                    <div class="col-sm-12 text-center">
+                        ¿No tienes una cuenta? <a [routerLink]="['/register']" class="text-primary m-l-5"><b>Registrarse</b></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->

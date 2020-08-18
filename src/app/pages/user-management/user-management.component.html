@@ -1,0 +1,250 @@
+<div class="card">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="container mt-4" *ngIf="!actualizar">
+
+
+            </div>
+
+            <div class="container">
+                <h4>Datos del usuario</h4>
+                <hr>
+            </div>
+
+            <form (ngSubmit)="updateUsuarios(forma)" #forma="ngForm" novalidate="" enctype="multipart/form-data">
+                <div class=" container form-group-sm small">
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+
+                            <div class=" mt-2">
+                                <select class="custom-select selectpicker form-control form-control-sm" data-live-search="true" title="Buscar usuario" type="text" name="strName" [(ngModel)]="user.strName" required #strName="ngModel" (ngModelChange)="getUsuario($event)">
+                                    <option *ngFor="let usuario of usuarios"  [ngValue]="usuario._id" >{{usuario.strName}} {{usuario.strLastName}} {{usuario.strMotherLastName}}</option>
+                                    
+                                </select>
+                                <div class="invalid-feedback" *ngIf="strName.errors?.required">
+                                    <small>
+                                        Por favor, seleccione una opción.
+                                    </small>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class=" mt-2">
+                                <select class="custom-select form-control form-control-sm" name="idRole" type="text" title="Seleccione un rol" name="idRole" [(ngModel)]="user.idRole" required (ngModelChange)="getRole($event)" #idRole="ngModel">
+                                    <option [ngValue]="user.idRole" disabled selected hidden>{{role == ''? 'Seleccionar rol': role}}</option>  
+                                    <option *ngFor="let rol of roles" [ngValue]="rol._id" [selected]="role == rol._id">{{rol.strRole}}</option> 
+                                  </select>
+
+                            </div>
+
+                            <!-- <div class=" mt-2">
+                                <select [class.is-invalid]="idRole.invalid && idRole.touched" class="custom-select selectpicker form-control form-control-sm" type="text" title="Seleccione un rol" name="idRole" [(ngModel)]="user.idRole" required #idRole="ngModel">
+                                <option *ngFor="let rol of role" [ngValue]="rol._id">{{rol.strRole}}</option>
+                                </select>
+                                <div class="invalid-feedback" *ngIf="idRole.errors?.required">
+                                    <small>
+                                        Por favor, seleccione una opción.
+                                    </small>
+                                </div>
+                            </div> -->
+
+
+                            <div class="mt-2">
+                                <select class="custom-select form-control form-control-sm" type="text" name="blnStatus" [(ngModel)]="status" #blnActivo="ngModel" (ngModelChange)="statusChange($event)" title="Seleccionar estatus">
+                                    <option [ngValue]="status" disabled selected hidden>{{status == ''? 'Seleccionar estatus': status=='true' || status == 'Activo'? 'Activo':'Inactivo'}}</option>
+                                    <option  [selected]="status == 'true'">Activo</option>
+                                    <option [selected]="status == 'false' ">Inactivo</option> 
+                                  </select>
+                            </div>
+
+                            <!--Labels y sus validaciones-->
+
+                            <div class=" mt-2">
+                                <label style="font-weight:  bolder;">Nombre completo</label>
+                            </div>
+
+                            <div class=" mt-1">
+                                <label style="margin-left: 50px;">{{user.strName}} {{user.strLastName}} {{user.strMotherLastName}} </label>
+
+                                <!-- <select [class.is-invalid]="idEstatus.invalid && idEstatus.touched" class="custom-select selectpicker form-control form-control-sm" type="text" title="Seleccione un estatus" name="idEstatus" [(ngModel)]="userManag.idEstatus" required #idEstatus="ngModel"> -->
+                                <!-- <option *ngFor="let esp of especialidades" [ngValue]="esp._id">{{esp.strEspecialidad}}</option> -->
+                                <!-- </select> -->
+
+                            </div>
+
+
+                            <div class=" mt-2">
+                                <label style="font-weight:  bolder;">Correo</label>
+                                <!-- <select [class.is-invalid]="idEstatus.invalid && idEstatus.touched" class="custom-select selectpicker form-control form-control-sm" type="text" title="Seleccione un estatus" name="idEstatus" [(ngModel)]="userManag.idEstatus" required #idEstatus="ngModel"> -->
+
+                                <!-- <option *ngFor="let esp of especialidades" [ngValue]="esp._id">{{esp.strEspecialidad}}</option> -->
+                                <!-- </select> -->
+
+                            </div>
+
+                            <div class=" mt-1">
+                                <label style="text-align:left; margin-left: 50px;">{{user.strEmail}}</label>
+                                <!-- <select [class.is-invalid]="idEstatus.invalid && idEstatus.touched" class="custom-select selectpicker form-control form-control-sm" type="text" title="Seleccione un estatus" name="idEstatus" [(ngModel)]="userManag.idEstatus" required #idEstatus="ngModel"> -->
+                                <!-- <option *ngFor="let esp of especialidades" [ngValue]="esp._id">{{esp.strEspecialidad}}</option> -->
+                                <!-- </select> -->
+
+                            </div>
+
+
+                            <div class=" mt-2">
+                                <label style="font-weight:  bolder;">Ultimo acceso</label>
+                                <!-- <select [class.is-invalid]="idEstatus.invalid && idEstatus.touched" class="custom-select selectpicker form-control form-control-sm" type="text" title="Seleccione un estatus" name="idEstatus" [(ngModel)]="userManag.idEstatus" required #idEstatus="ngModel"> -->
+
+                                <!-- <option *ngFor="let esp of especialidades" [ngValue]="esp._id">{{esp.strEspecialidad}}</option> -->
+                                <!-- </select> -->
+
+                            </div>
+
+                            <div class=" mt-1">
+                                <label style="margin-left: 50px;">{{user.updatedAt | date }} hrs</label>
+                                <!-- <select [class.is-invalid]="idEstatus.invalid && idEstatus.touched" class="custom-select selectpicker form-control form-control-sm" type="text" title="Seleccione un estatus" name="idEstatus" [(ngModel)]="userManag.idEstatus" required #idEstatus="ngModel"> -->
+                                <!-- <option *ngFor="let esp of especialidades" [ngValue]="esp._id">{{esp.strEspecialidad}}</option> -->
+                                <!-- </select> -->
+                            </div>
+
+
+                            <div class="list-inline mt-3 text-right">
+                                <div class="list-inline-item">
+                                    <div class="form-group row">
+                                        <div class="mr-3">
+                                            <button [disabled]="forma.invalid" type="submit " class="btn btn-outline-info btn-sm "><i class="fa fa-save mr-2 "></i>Editar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <!-- <div class="container mt-4" *ngIf="actualizar">
+                <app-update-user (optionCancel)="updateCanceled($event)" ></app-update-user>
+            </div> -->
+        </div>
+        <!-----------------------ok------------------------------>
+        <div class="col-md-8">
+            <form>
+                <div class="row container mt-4">
+                    <div class="col-md-11 mt-2">
+                        <input [(ngModel)]="searchText" type="text" name="searchText" class="form-control form-control-sm btn-outline-secondary ops" placeholder=" Buscar...">
+                    </div>
+                    <div class="col-md-1 mt-2">
+                        <div>
+                            <button type="button" class="btn btn-info btn-sm" id="dropdownReports" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h "></i></button>
+                            <div class="dropdown-menu dropdown-menu-right shadow-lg " aria-labelledby="dropdownReports">
+                                <div class="dropdown-header text-info">
+                                    <span class="text-xs text-uppercase ">EXPORTAR</span>
+                                </div>
+                                <a type="button" class="dropdown-item drop-options-text pdf " style="cursor: pointer; cursor:hand;" (click)="exportPDF()"><i class="fa fa-file-pdf-o mr-2 "></i>PDF</a>
+                                <a type="button" class="dropdown-item drop-options-text excel" style="cursor: pointer; cursor:hand;" (click)="exportAsXLSX()"><i class="fa fa-file-excel-o mr-2 "></i>Excel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row container mt-4">
+                    <div class="container small">
+                        <div class="row fadeIn">
+                            <div class="col-12">
+
+                                <table class="table table-sm table-hover table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>CARRERA / ESPECIALIDAD </th>
+                                            <th>ASIGNADO</th>
+
+                                        </tr>
+                                    </thead>
+                                    <!-- SE MUESTRA CUANDO HAY REGISTROS -->
+                                    <tbody *ngIf="carreras.length &gt; 0 && !cargando">
+                                        <tr *ngFor="let carrera of carreras | filter:searchText | paginate:{itemsPerPage: 10, currentPage: pageActual}">
+                                            <td>
+                                                <strong>
+                                                    {{carrera.strCarrera}}
+                                                </strong>
+
+                                                <div class="row" *ngFor="let especialidad of carrera.aJsnEspecialidad">
+                                                    <div class="col-xs col-sm">
+                                                        <!-- <tr>
+                                                            <td>
+
+                                                            </td>
+                                                        </tr> -->
+                                                        <p class=" mt-4 ml-4" style="margin-left: 50px;">
+                                                            {{ especialidad.strEspecialidad}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </td>
+
+                                            <td>
+
+                                                <div class="ml-4" (click)="changetodos(carrera)">
+                                                    <p>
+                                                        <input type="checkbox" id="check" value="check" [checked]="carrera.check">
+                                                        <label for="vehicle1" class="form checkbox"> </label>
+                                                    </p>
+                                                </div>
+
+                                                <div class="ml-4" *ngFor="let especialidad of carrera.aJsnEspecialidad">
+                                                    <p (click)="changeCheck(especialidad)">
+                                                        <input type="checkbox" id="check" value="check" [checked]="especialidad.check">
+                                                        <label for="vehicle1" class="form checkbox"> </label>
+                                                    </p>
+                                                </div>
+
+                                                <!-- <div *ngFor="let especialidad of carrera.aJsnEspecialidad" class="col-xs col-sm checknew text-center ml-5" (click)="changeCheck(especialidad)">
+                                                    <p>
+                                                        <input type="checkbox" id="check" value="check" [checked]="especialidad.check">
+                                                        <label for="vehicle1" class="form checkbox"> </label>
+                                                    </p>
+
+                                                </div> -->
+
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+
+                                    <!-- SE MUESTRA CUANDO NO HAY REGISTROS -->
+                                    <tbody *ngIf="carreras.length &lt;= 0 && !cargando">
+                                        <tr>
+                                            <td colspan="14">
+                                                <div class="alert-dismissible text-center" style="padding: .75rem 1.25rem;">
+                                                    <h5 style="height: 100%;width: 100%;"><strong><i class="fa fa-frown-o" aria-hidden="true"></i> ¡NO HAY REGISTROS PARA MOSTRAR!</strong></h5>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="mt-4 float-right fadeIn ">
+                                    <pagination-controls (pageChange)="pageActual=$event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </form>
+        </div>
+    </div>
+</div>

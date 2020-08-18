@@ -1,0 +1,89 @@
+<div class="card animated fadeIn fast">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="container mt-4" *ngIf="!actualizar">
+                <app-register-crde (refresh)="refreshTable($event)"></app-register-crde>
+            </div>
+
+            <div class="container mt-4" *ngIf="actualizar">
+                <app-update-crde (optionCancel)="updateCanceled($event)" (refresh)="refreshTable($event)" [idReasons]="idReasons"></app-update-crde>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <form>
+                <div class="row container mt-4">
+                    <div class="col-md-11 mt-2">
+                        <input [(ngModel)]="searchText" type="text" name="searchText" class="form-control form-control-sm btn-outline-secondary ops" placeholder=" Buscar...">
+                    </div>
+                    <div class="col-md-1 mt-2">
+                        <div>
+                            <button type="button" class="btn btn-info btn-sm" id="dropdownReports" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h "></i></button>
+                            <div class="dropdown-menu dropdown-menu-right shadow-lg " aria-labelledby="dropdownReports">
+                                <div class="dropdown-header text-info">
+                                    <span class="text-xs text-uppercase ">EXPORTAR</span>
+                                </div>
+                                <a type="button" class="dropdown-item drop-options-text pdf " (click)="exportPDF()"><i class="fa fa-file-pdf-o mr-2 "></i>PDF</a>
+                                <a type="button" class="dropdown-item drop-options-text excel" (click)="exportAsXLSX()"><i class="fa fa-file-excel-o mr-2 "></i>Excel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row container mt-4">
+                    <div class="container small">
+                        <div class="row fadeIn">
+                            <div class="col-12">
+
+                                <table class="table table-sm table-hover table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>NOMBRE DE LA CATEGORIA</th>
+                                            <th class="text-center">ESTATUS</th>
+                                            <th class="text-center"> ACCIONES</th>
+                                        </tr>
+                                    </thead>
+
+                                    <!-- SE MUESTRA CUANDO HAY REGISTROS -->
+                                    <tbody *ngIf="reasons.length &gt; 0 && !cargando">
+
+                                        <tr *ngFor="let reasons of reasons | filter:searchText | paginate:{itemsPerPage: 10, currentPage: pageActual}">
+                                            <td>{{ reasons.strCategoria }}</td>
+                                            <td *ngIf="reasons.blnStatus === activo" class="text-center">Activo</td>
+                                            <td *ngIf="reasons.blnStatus !== activo" class="text-center">Inactivo</td>
+                                            <td class=" text-center ">
+                                                <button type="button" class="btn btn-info btn-sm" id="dropdownReports" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h "></i></button>
+                                                <div class="dropdown-menu dropdown-menu-right shadow-lg " aria-labelledby="dropdownReports">
+                                                    <div class="dropdown-header text-info">
+                                                        <span class="text-xs text-uppercase ">opciones</span>
+                                                    </div>
+                                                    <a (click)="actualizarCategoria(true, reasons._id)" type="button" class="dropdown-item drop-options-text excel "><i class="fa fa-edit mr-2 "></i>Actualizar</a>
+                                                    <a type="button" [routerLink]="['/behavior', reasons._id]" class="dropdown-item drop-options-text blue"><i class="fa fa-book mr-2 "></i>Conducta</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                    <!-- SE MUESTRA CUANDO NO HAY REGISTROS -->
+                                    <tbody *ngIf="reasons.length &lt;= 0 && !cargando">
+                                        <tr>
+                                            <td colspan="14">
+                                                <div class="alert-dismissible text-center" style="padding: .75rem 1.25rem;">
+                                                    <h5 style="height: 100%;width: 100%;"><strong><i class="fa fa-frown-o" aria-hidden="true"></i> ¡NO HAY REGISTROS PARA MOSTRAR!</strong></h5>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="mt-4 float-right fadeIn ">
+                                    <pagination-controls (pageChange)="pageActual=$event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="card animated fadeIn fast">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="container mt-4" *ngIf="!actualizar">
+                <!-- <app-register-career (refresh)="refreshTable($event)"></app-register-career> -->
+                <app-register-status (registrado)=recargarTabla($event)></app-register-status>
+            </div>
+
+            <div class="container mt-4" *ngIf="actualizar">
+                <!-- <app-update-career (optionCancel)="updateCanceled($event)"  (refresh)="refreshTable($event)" [idCareer]="idCareer" ></app-update-career> -->
+                <app-update-status [idEstatus]="idEstatus" (actualizado)="recargarTabla($event)" (cancelUpdate)="cancelUpdate($event)"></app-update-status>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <form>
+                <div class="row container mt-4">
+                    <div class="col-md-11 mt-2">
+                        <input [(ngModel)]="searchText" type="text" name="searchText" class="form-control form-control-sm btn-outline-secondary ops" placeholder=" Buscar...">
+                    </div>
+                    <div class="col-md-1 mt-2">
+                        <div>
+                            <button type="button" class="btn btn-info btn-sm" id="dropdownReports" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h "></i></button>
+                            <div class="dropdown-menu dropdown-menu-right shadow-lg " aria-labelledby="dropdownReports">
+                                <div class="dropdown-header text-info">
+                                    <span class="text-xs text-uppercase ">EXPORTAR</span>
+                                </div>
+                                <a type="button" class="dropdown-item drop-options-text pdf " (click)="exportPDF()"><i class="fa fa-file-pdf-o mr-2 "></i>PDF</a>
+                                <a type="button" class="dropdown-item drop-options-text excel" (click)="exportAsXLSX()"><i class="fa fa-file-excel-o mr-2 "></i>Excel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row container mt-4">
+                    <div class="container small">
+                        <div class="row fadeIn">
+                            <div class="col-12">
+
+                                <table class="table table-sm table-hover table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>NOMBRE DEL ESTATUS</th>
+                                            <th>DESCRIPCIÓN</th>
+                                            <th class="text-center">ESTATUS</th>
+                                            <th class="text-center">ACCIONES</th>
+                                        </tr>
+                                    </thead>
+
+                                    <!-- SE MUESTRA CUANDO HAY REGISTROS -->
+                                    <tbody *ngIf="estatus.length &gt; 0 && !cargando">
+                                        <tr *ngFor="let e of estatus | filter:searchText | paginate:{itemsPerPage: 10, currentPage: pageActual}">
+                                            <td>{{ e.strNombre }}</td>
+                                            <td>{{ e.strDescripcion }}</td>
+                                            <td *ngIf="e.blnActivo === activo" class="text-center">Activo</td>
+                                            <td *ngIf="e.blnActivo !== activo" class="text-center">Inactivo</td>
+                                            <td class=" text-center ">
+                                                <button [disabled]="actualizar" type="button" class="btn btn-info btn-sm" id="dropdownReports" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h "></i></button>
+                                                <div class="dropdown-menu dropdown-menu-right shadow-lg " aria-labelledby="dropdownReports">
+                                                    <div class="dropdown-header text-info">
+                                                        <span class="text-xs text-uppercase ">opciones</span>
+                                                    </div>
+                                                    <a (click)="actualizarEstatus(true, e._id)" type="button" class="dropdown-item drop-options-text excel "><i class="fa fa-edit mr-2 "></i>Actualizar</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                    <!-- SE MUESTRA CUANDO NO HAY REGISTROS -->
+                                    <tbody *ngIf="estatus.length &lt;= 0 && !cargando">
+                                        <tr>
+                                            <td colspan="14">
+                                                <div class="alert-dismissible text-center" style="padding: .75rem 1.25rem;">
+                                                    <h5 style="height: 100%;width: 100%;"><strong><i class="fa fa-frown-o" aria-hidden="true"></i> ¡NO HAY REGISTROS PARA MOSTRAR!</strong></h5>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="mt-4 float-right fadeIn ">
+                                    <pagination-controls (pageChange)="pageActual=$event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="card-deck row animated fadeIn fast">
+
+    <div class="col-md-4 animated fadeIn fast">
+        <div class="card text-center rounded" style="height: 92%; cursor: pointer; cursor:hand; justify-content:center; color: #14B0FE; background-color: white; transform: scale(1.0);
+        -webkit-tap-highlight-color: transparent;
+        -webkit-font-smoothing: antialiased;
+        -webkit-box-shadow: 10px 13px 25px -11px rgba(157, 149, 199, 0.62);
+        -moz-box-shadow: 10px 13px 25px -11px rgba(157, 149, 199, 0.62);
+        box-shadow: 10px 13px 25px -11px rgba(157, 149, 199, 0.62);" (click)="redirigir()">
+            <i class="fa fa-plus-circle fa-5x"></i>
+            <p>Nueva Alerta</p>
+        </div>
+    </div>
+
+
+    <div class="col-md-4 animated fadeIn fast" *ngFor="let alert of alerts">
+        <div [routerLink]="['/Tracking-alerts', alert._id]" class="card rounded" style="transform: scale(1.0);
+        -webkit-tap-highlight-color: transparent;
+        -webkit-font-smoothing: antialiased;
+        -webkit-box-shadow: 10px 13px 25px -11px rgba(157, 149, 199, 0.62);
+        -moz-box-shadow: 10px 13px 25px -11px rgba(157, 149, 199, 0.62);
+        box-shadow: 10px 13px 25px -11px rgba(157, 149, 199, 0.62); height: 92%; cursor: pointer;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="card-text mb-2" style="font-size: small"><i class="fa fa-graduation-cap text-info"></i> {{alert.idCarrera.strCarrera}}</p>
+                    </div>
+
+                    <div class="col-4">
+                        <span class="badge badge-info float-right" style="font-size: small" *ngIf="nuevo == alert.idEstatus._id"> <i class="fa fa-star"></i> {{alert.idEstatus.strNombre}}</span>
+                        <span class="badge badge-warning " style="font-size: small" *ngIf="enProgreso == alert.idEstatus._id"> <i class="fa fa-check"></i> {{alert.idEstatus.strNombre}}</span>
+                        <span class="badge badge-danger " style="font-size: small" *ngIf="cerrado == alert.idEstatus._id"> <i class="fa fa-cog fa-spin fa fa-fw "></i> {{alert.idEstatus.strNombre}}</span>
+                        <span class="badge badge-success " style="font-size: small" *ngIf="finalizado == alert.idEstatus._id"> <i class="fa fa-cog fa-spin fa fa-fw "></i> {{alert.idEstatus.strNombre}}</span>
+
+                    </div>
+                </div>
+
+                <div class=row>
+                    <div class="col-7">
+
+                        <p class="card-text mb-2" style="font-size: small"><i class="fa fa-user-circle text-info" style="margin-right: 5px;"></i> {{alert.strNombreAlumno}}</p>
+                    </div>
+
+                    <div class="col-5">
+                        <p class="card-text float-right" style="font-size: small"><i class="fa fa-calendar text-info" style="margin-right: 5px;"></i> {{alert.updatedAt | date}}</p>
+                    </div>
+                </div>
+
+                <div class=row>
+                    <div class="col-12">
+
+                        <p class="card-text mb-2" style="font-size:medium"><i class="fa fa-bars" style="margin-right: 5px;"></i> <span class="badge badge-danger" style="margin-right: 2px; padding-left: 2px;" data-toggle="tooltip" data-placement="top" title="" *ngFor="let crde of alert.arrCrde"> {{crde.strCategoria}}</span></p>
+                    </div>
+                </div>
+
+                <div class=row>
+                    <div class="col-12 ">
+                        <p class="card-text" style="font-size: small">{{alert.strDescripcion}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,64 @@
+<div class="container animated fadeIn fast">
+    <h4>Actualizar Asignatura</h4>
+    <hr>
+</div>
+
+<form (ngSubmit)="updateAsignatura(forma)" #forma="ngForm" novalidate="" enctype="multipart/form-data">
+    <div class="form-group-sm small">
+
+        <div class="row">
+            <div class="form-group col-md-12">
+
+                <div>
+                    <input [class.is-invalid]="strAsignatura.invalid && strAsignatura.touched" class="form-control form-control-sm" type="text " placeholder="Nombre de la asignatura" name="strAsignatura" [(ngModel)]="sub.strAsignatura" required #strAsignatura="ngModel">
+                    <div class="invalid-feedback" *ngIf="strAsignatura.errors?.required">
+                        <small>
+                            Es necesario ingresar un nombre.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <input [class.is-invalid]="strSiglas.invalid && strSiglas.touched" class="form-control form-control-sm" type="text " placeholder="Nombre de la siglas" name="strSiglas" [(ngModel)]="sub.strSiglas" required #strSiglas="ngModel">
+                    <div class="invalid-feedback" *ngIf="strSiglas.errors?.required">
+                        <small>
+                            Es necesario ingresar una sigla.
+                        </small>
+                    </div>
+                </div>
+
+
+                <div class="mt-2">
+                    <select [class.is-invalid]="blnStatus.invalid && blnStatus.touched" class="custom-select form-control form-control-sm" type="text" name="blnStatus" [(ngModel)]="sub.blnStatus" required #blnStatus="ngModel">
+                        <option [ngValue]="true">Activo</option>
+                        <option [ngValue]="false">Inactivo</option>
+                      </select>
+                </div>
+
+                <!-- <div class="list-inline mt-3 text-right">
+                    <div class="list-inline-item">
+                        <div class="form-group row">
+                            <div class="mr-3">
+                                <button [disabled]="forma.invalid" type="submit " class="btn btn-outline-info btn-sm "><i class="fa fa-save mr-2 "></i>Actualizar</button>
+                                <button (click)="updateCanceled()" type="submit " class="btn btn-outline-danger btn-sm "><i class="fa fa-times mr-2 "></i>Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="list-inline mt-3 text-right">
+                    <div class="list-inline-item">
+                        <div class="form-group row">
+                            <div class="mr-3">
+                                <button (click)="updateCanceled() " type="button " class="btn btn-outline-danger btn-sm mr-2 "><i class="fa fa-times mr-2"></i>Cancelar</button>
+                                <button [disabled]="forma.invalid" type="submit " class="btn btn-outline-info btn-sm "><i class="fa fa-save mr-2 "></i>Actualizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</form>
