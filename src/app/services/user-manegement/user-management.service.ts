@@ -32,14 +32,13 @@ export class UserManagementService {
 
   
   putUsuarioEspecialidad(idUsers: string, especilidad: any[]){
-    console.log(especilidad);
-    especilidad.forEach(element =>{
-      let aJsnEspecialidad = {
-        "aJsnEspecialidad": especilidad
-        
-      }
+    console.log("pinche especialidad we " ,especilidad);
+    let aJsnEspecialidad = {
+      "aJsnEspecialidad": especilidad
+      
+    }
     return this.http.put(`${this.URL}/Users/asignar-especialidad/${idUsers}`, aJsnEspecialidad).toPromise();
-    });
+
    
   }
   postUsuarios(idUsers: User ){
